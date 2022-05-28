@@ -4,17 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>40k Army Builder</title>
+    <meta name="description" content="Point tracking for building an army ion Warhammer 40k">
+    <link rel="stylesheet" href="css/css.css">
 </head>
 <body>
     <h1>Warhammer 40k Army Builder</h1>
-    <div id="list">
+    <div id="header">
         <label for="tyranids">Choose your army:</label>
         <select name="army" class="army">
             <option value="tyranids">Tyranids</option>
         </select>
-        <p class="hello"></p>
+        <span id="name">Unit Name</span>
+        <span id=":modelCount"># of Models</span>
+        <span id="pointValue">Total Points</span>
+        <span id="remove">Remove</span>
     </div>
-    <button class="addnew">Add new unit</button>
+    <div id="list">
+
+    </div>
+    <div class="container">
+        <button class="addnew">Add new unit</button>
+    </div>
     <script src="js/js.js"></script>
 </body>
 </html>

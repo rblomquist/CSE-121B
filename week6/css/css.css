@@ -1,0 +1,53 @@
+* {
+    margin:auto;
+}
+
+h1 {
+    text-align: center;
+    padding: 10px;
+}
+
+#header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+}
+
+#header label, select {
+    grid-column: 1 / span 4;
+    text-align: center;
+    padding: 3px;
+}
+
+/* #list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+} */
+
+
+.unit {
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+
+    grid-column: 1/ span 4;
+
+    text-align: center;
+    padding: 5px;
+}
+
+.unit select {
+    grid-column: 1;
+}
+
+.unit input {
+    grid-column: 2;
+    text-align: center;
+    padding: 3px;
+}
+
+.container {  
+    text-align: center;  
+}   
+

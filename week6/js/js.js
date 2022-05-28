@@ -2,18 +2,17 @@ const button = document.querySelector(".addnew");
 let nameList = [];
 let pointsList = [];
 getData();
-console.log(nameList);
-console.log(pointsList);
 
 button.addEventListener("click", () => {
     const list = document.querySelector("#list");
+    
     const section = document.createElement("section");
     section.setAttribute("class", "unit")
 
     const chooseName = document.createElement("select");
     chooseName.setAttribute("name", "name");
     chooseName.setAttribute("class", "name");
-    chooseName.setAttribute("onchange", chooseName.value);
+    chooseName.addEventListener("change", onSelectBoxChange);
   
     const y = document.createElement("option");
     y.text = "";
@@ -21,8 +20,7 @@ button.addEventListener("click", () => {
     
     nameList.forEach (name => {
         let y = document.createElement("option");
-        y.setAttribute("value", "name");
-        y.setAttribute("onchange", "name");
+        y.value = name
         y.text = name;
         chooseName.options.add(y)});
 
@@ -32,33 +30,12 @@ button.addEventListener("click", () => {
     const input = document.createElement("INPUT");
     input.setAttribute("type", "text");
     input.setAttribute("class", "models");
-    input.defaultValue = 0;
+    input.addEventListener("input", onModelCountBox);
 
     const span = document.createElement("span");
     input.setAttribute("class", "points");
-    span.textContent = 50;
+    span.textContent = 0;
     
-    // merge name and point list, when looping through each try
-    // splitting the values by "\n" should hopefully give 2 indexes
-    // then can try "if name = list[0] then points = list[1]"
-    
-    
-    // let points = nameList.forEach (name => {
-    //    let index = () => {
-    //        for (let i = 0; i < nameList; i++){
-    //         console.log(i);
-    //         if (nameList == name) {
-    //             const index = i;
-    //             console.log(index);
-    //             return index
-    //        }}}
-    //         const total = input.value * pointsList[index];
-    //         return total
-            
-
-    // })
-    // span.textContent = points;
-
     const remove = document.createElement("button");
     input.setAttribute("class", "remove");
     remove.textContent = "❌";
@@ -73,6 +50,34 @@ button.addEventListener("click", () => {
     list.appendChild(section);
 });
 
+function onModelCountBox(e) {
+    let points = e.target.nextElementSibling;
+    let selectBox = e.target.previousSibling;
+    let selectBoxValue = selectBox.options[selectBox.selectedIndex].value;
+    let index = getIndex(selectBoxValue);
+    points.textContent = getTotal(e.target.value, index);
+}
+
+function onSelectBoxChange(e) {
+    let points = e.target.nextElementSibling.nextElementSibling;
+    let models = e.target.nextElementSibling.value;
+    let selectBoxValue = e.target.options[e.target.selectedIndex].value;
+    let index = getIndex(selectBoxValue);
+    points.textContent = getTotal(models, index);
+}
+
+
+function getTotal(value, index) {
+    const total = value * pointsList[index];
+    return total;
+}
+
+function getIndex(name) {
+    for (let i = 0; i < nameList.length; i++){
+        if (name == nameList[i]){
+            return i;
+    }}}
+
 async function getData() {
     let url = "images/tyranids.csv";
     
@@ -85,10 +90,10 @@ async function getData() {
 
     dict.forEach(line => {
         const item = line.split(",");
-        // console.log(item);
         const name = item[0];
-        const points = item[3];
+        const points = parseInt(item[3].replace("\r", ""));
 
         nameList.push(name);
         pointsList.push(points);
     })};
+
